@@ -1,10 +1,16 @@
 import React from 'react'
 import axios from 'axios'
-import { useQuery } from 'react-query'
+import { queryCache, useQuery } from 'react-query'
 
 export default function usePosts() {
   return useQuery(
     'posts',
-    async () => await axios.get('/api/posts').then((res) => res.data)
+    async () => await axios.get('/api/posts').then((res) => res.data), {
+      onSuccess: data => {
+        data.forEach((post) => {
+          queryCache.setQueryData(['post', post.id], post)
+        })
+      }
+    }
   )
 }
