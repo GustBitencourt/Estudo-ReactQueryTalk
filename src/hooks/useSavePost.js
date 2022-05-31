@@ -11,8 +11,6 @@ export default function useSavePost() {
       onMutate: (newPost) => {
         //update the data
         queryCache.setQueryData(['posts', newPost.id], newPost)
-
-
       },
       onSuccess: (newPost) => {
         queryCache.setQueryData(['posts', newPost.id], newPost)
