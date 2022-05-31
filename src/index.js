@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { ReactQueryDevtools } from 'react-query-devtools'
 //
 
 import { Wrapper, Main } from './components/styled'
@@ -41,6 +42,7 @@ export default function App() {
             </Routes>
           </Main>
         </Wrapper>
+        <ReactQueryDevtools />
       </BrowserRouter>
     </SafeHydrate>
   )
