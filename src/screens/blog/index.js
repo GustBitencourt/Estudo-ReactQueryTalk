@@ -7,11 +7,10 @@ import { PostStyles } from '../../components/styled'
 export default function Home() {
   const postsQuery = usePosts()
 
-  console.log(postsQuery)
 
   return (
     <div>
-      <h1>Blog</h1>
+      <h1>Blog {postsQuery.isFetching ? 'Loading...' : null}</h1>
 
       <div
         css={`

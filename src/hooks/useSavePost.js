@@ -4,12 +4,34 @@ import { useMutation, queryCache } from 'react-query'
 
 export default function useSavePost() {
   return useMutation(
-    (values) => axios
-      .patch(`/api/posts/${values.id}`, values)
+    (newPost) => axios
+      .patch(`/api/posts/${newPost.id}`, newPost)
       .then((res) => res.data),
     {
-      onSuccess: (post) => {
-        queryCache.invalidateQueries(['posts', post.id]);
+      onMutate: (newPost) => {
+        //update the data
+        queryCache.setQueryData(['posts', newPost.id], newPost)
+
+
+      },
+      onSuccess: (newPost) => {
+        queryCache.setQueryData(['posts', newPost.id], newPost)
+
+        if (queryCache.getQueryData('posts')) {
+          queryCache.setQueryData('posts', oldPost => {
+            return oldPost.map(data => {
+              if (data.id === newPost.id) {
+                return newPost
+              }
+  
+              return data;
+            })
+          })
+
+        } else {
+          queryCache.setQueryData('posts', [newPost])
+          queryCache.invalidateQueries('posts');
+        }
       }
     }
   )

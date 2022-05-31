@@ -5,7 +5,7 @@ import { ReactQueryDevtools } from 'react-query-devtools'
 
 import { Wrapper, Main } from './components/styled'
 import Sidebar from './components/Sidebar'
-
+import GlobalLoader from './components/GlobalLoader'
 import Admin from './screens/admin'
 import AdminPost from './screens/admin/Post'
 import Blog from './screens/blog'
@@ -24,6 +24,7 @@ export default function App() {
     <SafeHydrate>
       <BrowserRouter>
         <Wrapper>
+          <GlobalLoader />
           <Sidebar />
           <Main>
             <Routes>
